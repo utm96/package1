@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: example-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: install-package
+        image: minhut/package2:1.0.0
+        volumeMounts:
+        - name: mageai-volume
+          mountPath: /data
+        command: 
+        - "sh"
+        - "-c"
+        - 'Rscript /app/install_script.R && cp -R /usr/local/lib/R/site-library/* /data/'
+      restartPolicy: Never
+      volumes:
+      - name: mageai-volume
+        persistentVolumeClaim:
+          claimName: mageai-pvc
+      
+  backoffLimit: 4
+

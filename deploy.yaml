@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: module2
+  name: module2
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: module2
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: module2
+    spec:
+      containers:
+      # - image: minhut/debian-lib:lastest
+      - image: minhut/package2:1.0.1
+      # - image: python:3.10-bookworm
+        volumeMounts:
+        - name: mageai-volume
+          mountPath: /usr/local/lib/R/site-library
+        imagePullPolicy: Always
+        name: mageai
+        resources:
+          limits:
+            cpu: 1
+            ephemeral-storage: 1Gi
+            memory: 2Gi
+          requests:
+            cpu: 300m
+            ephemeral-storage: 2Gi
+            memory: 1Gi
+
+      volumes:
+      - name: mageai-volume
+        persistentVolumeClaim:
+          claimName: mageai-pvc
