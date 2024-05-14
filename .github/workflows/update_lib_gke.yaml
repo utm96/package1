@@ -28,7 +28,8 @@ jobs:
     # Setup gcloud CLI
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v2'
-
+      with:
+        install_components: "gke-gcloud-auth-plugin"  
     - name: Configure kubectl
       run: |
         gcloud container clusters get-credentials minh-test-mageai --region europe-north1 --project k8s-test-421812
