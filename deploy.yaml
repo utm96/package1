@@ -28,12 +28,10 @@ spec:
         resources:
           limits:
             cpu: 1
-            ephemeral-storage: 1Gi
-            memory: 2Gi
+            memory: 300M
           requests:
-            cpu: 300m
-            ephemeral-storage: 2Gi
-            memory: 1Gi
+            cpu: 100m
+            memory: 300M
 
       volumes:
       - name: mageai-volume
